@@ -5,7 +5,7 @@ namespace AirQualityMonitor.Services;
 
 // Проста обгортка над SQLite: зберігає список датчиків між запусками.
 // Запити в sqlite-net параметризовані, тому SQL-ін'єкції неможливі.
-public class Database
+public class Database : ISensorStorage
 {
     private SQLiteAsyncConnection _db = null!;
 

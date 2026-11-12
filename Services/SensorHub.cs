@@ -6,9 +6,11 @@ namespace AirQualityMonitor.Services;
 // "Сервер" платформи: підключає датчики, приймає від них дані й передає їх інтерфейсу.
 public class SensorHub
 {
-    private readonly Database _db = new();
+    private readonly ISensorStorage _db;
     private readonly Dictionary<int, ISensor> _connected = new();
     private readonly List<SensorInfo> _sensors = new();
+
+    public SensorHub(ISensorStorage db) => _db = db;
 
     public IReadOnlyList<SensorInfo> Sensors => _sensors;
 

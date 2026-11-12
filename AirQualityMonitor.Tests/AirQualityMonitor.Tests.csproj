@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>AirQualityMonitor.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <PackageReference Include="coverlet.collector" Version="6.0.2" />
+
+    <!-- Пакети, потрібні файлам застосунку, які ми підключаємо нижче -->
+    <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <PackageReference Include="Microsoft.Maui.Graphics" Version="8.0.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+    <Using Include="Microsoft.Maui.Graphics" />
+  </ItemGroup>
+
+  <!--
+    MAUI-проєкт збирається лише під Android/Windows/iOS, тому його не можна підключити як
+    ProjectReference до звичайного net8.0. Замість цього підключаємо потрібні файли напряму
+    (без Database, ClientViewModel, AdminViewModel і Views — вони залежать від MAUI).
+  -->
+  <ItemGroup>
+    <Compile Include="..\Models\*.cs" LinkBase="Linked\Models" />
+    <Compile Include="..\Sensors\*.cs" LinkBase="Linked\Sensors" />
+    <Compile Include="..\Services\SensorHub.cs" LinkBase="Linked\Services" />
+    <Compile Include="..\Services\ISensorStorage.cs" LinkBase="Linked\Services" />
+    <Compile Include="..\ViewModels\SensorCard.cs" LinkBase="Linked\ViewModels" />
+  </ItemGroup>
+
+</Project>

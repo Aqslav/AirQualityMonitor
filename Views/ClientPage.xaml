@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AirQualityMonitor.Views.ClientPage"
+             Title="Якість повітря">
+
+    <CollectionView ItemsSource="{Binding Cards}">
+
+        <CollectionView.EmptyView>
+            <Label Text="Датчиків немає. Додайте їх у розділі «Адмін»."
+                   HorizontalOptions="Center" VerticalOptions="Center" Margin="20" />
+        </CollectionView.EmptyView>
+
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Border Margin="10,5" Padding="15" Stroke="Transparent"
+                        StrokeShape="RoundRectangle 12"
+                        BackgroundColor="{AppThemeBinding Light=#F0F0F0, Dark=#2B2B2B}">
+                    <VerticalStackLayout Spacing="6">
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="{Binding Info.Name}" FontSize="20" FontAttributes="Bold" />
+                            <Label Grid.Column="1" Text="{Binding Quality}"
+                                   TextColor="{Binding QualityColor}" FontAttributes="Bold" />
+                        </Grid>
+
+                        <Label Text="{Binding Info.Description}" FontSize="13" Opacity="0.7" />
+
+                        <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" RowSpacing="4">
+                            <Label Text="{Binding Pm25, StringFormat='PM2.5: {0} µg/m³'}" />
+                            <Label Grid.Column="1" Text="{Binding Pm10, StringFormat='PM10: {0} µg/m³'}" />
+                            <Label Grid.Row="1" Text="{Binding Co2, StringFormat='CO₂: {0} ppm'}" />
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Temperature, StringFormat='Темп.: {0} °C'}" />
+                            <Label Grid.Row="2" Text="{Binding Humidity, StringFormat='Вологість: {0} %'}" />
+                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding Updated}" FontSize="12" Opacity="0.7" />
+                        </Grid>
+
+                    </VerticalStackLayout>
+                </Border>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+
+    </CollectionView>
+</ContentPage>

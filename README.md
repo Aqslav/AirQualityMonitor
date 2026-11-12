@@ -30,7 +30,7 @@ dotnet build -t:Run -f net8.0-android                 # Android (емулято�
 |---|---|
 | `Models/` | `SensorInfo` (зберігається в БД), `AirReading` (одне вимірювання), `SensorType` |
 | `Sensors/` | `ISensor` — спільний інтерфейс, `RandomSensor` — єдина реалізація |
-| `Services/` | `SensorHub` — "сервер": підключає датчики й приймає дані; `Database` — SQLite |
+| `Services/` | `SensorHub` — "сервер": підключає датчики й приймає дані; `ISensorStorage` + `Database` — сховище (SQLite) |
 | `ViewModels/` | `AdminViewModel`, `ClientViewModel`, `SensorCard` |
 | `Views/` | `AdminPage`, `ClientPage` (XAML) |
 
@@ -46,3 +46,14 @@ AdminPage --> AdminViewModel --> SensorHub.AddAsync / RemoveAsync --> Database (
 1. Створити клас, що реалізує `ISensor` (наприклад, `EspSensor`).
 2. У `SensorHub.CreateSensor` додати `switch` по `info.Type`.
 Більше нічого змінювати не потрібно.
+
+## Автотести та покриття
+
+Тести лежать у `AirQualityMonitor.Tests/` (xUnit): `RandomSensor`, `SensorCard`, `SensorHub`, `SensorInfo`.
+`SensorHub` тестується з підміною сховища (`FakeStorage`), тому реальна БД не потрібна.
+
+```bash
+dotnet test AirQualityMonitor.Tests --collect:"XPlat Code Coverage"
+```
+
+GitHub Actions (`.github/workflows/ci.yml`) запускає тести та будує звіт про покриття на кожен push/PR.

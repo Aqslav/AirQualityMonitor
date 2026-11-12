@@ -20,6 +20,7 @@ public static class MauiProgram
             });
 
         // Один "сервер" і одні ViewModel на весь застосунок
+        builder.Services.AddSingleton<ISensorStorage, Database>();
         builder.Services.AddSingleton<SensorHub>();
         builder.Services.AddSingleton<AdminViewModel>();
         builder.Services.AddSingleton<ClientViewModel>();

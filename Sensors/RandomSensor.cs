@@ -7,6 +7,7 @@ namespace AirQualityMonitor.Sensors;
 public class RandomSensor : ISensor
 {
     private readonly Random _random = new();
+    private readonly int _intervalMs;
     private System.Threading.Timer? _timer;
 
     private double _pm25;
@@ -17,9 +18,10 @@ public class RandomSensor : ISensor
     public SensorInfo Info { get; }
     public event Action<AirReading>? DataSent;
 
-    public RandomSensor(SensorInfo info)
+    public RandomSensor(SensorInfo info, int intervalMs = 2000)
     {
         Info = info;
+        _intervalMs = intervalMs;
 
         // У кожного датчика свої початкові значення
         _pm25 = _random.Next(5, 30);
@@ -30,8 +32,8 @@ public class RandomSensor : ISensor
 
     public void Connect()
     {
-        // Кожні 2 секунди відправляємо нове вимірювання
-        _timer = new System.Threading.Timer(_ => Send(), null, 0, 2000);
+        // За замовчуванням кожні 2 секунди відправляємо нове вимірювання
+        _timer = new System.Threading.Timer(_ => Send(), null, 0, _intervalMs);
     }
 
     public void Disconnect()

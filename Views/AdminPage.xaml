@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AirQualityMonitor.ViewModels"
+             x:Class="AirQualityMonitor.Views.AdminPage"
+             Title="Адміністрування">
+
+    <Grid RowDefinitions="Auto,*" Padding="15" RowSpacing="15">
+
+        <!-- Форма додавання датчика -->
+        <VerticalStackLayout Spacing="8">
+            <Label Text="Новий датчик" FontSize="18" FontAttributes="Bold" />
+            <Entry Placeholder="Назва (напр. ESP-Кухня)" Text="{Binding Name}" />
+            <Entry Placeholder="Розташування" Text="{Binding Location}" />
+            <Picker Title="Тип датчика" ItemsSource="{Binding SensorTypes}" SelectedItem="{Binding SelectedType}" />
+            <Label Text="{Binding Error}" TextColor="Red" />
+            <Button Text="Підключити датчик" Command="{Binding AddCommand}" />
+        </VerticalStackLayout>
+
+        <!-- Список підключених датчиків -->
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Sensors}">
+
+            <CollectionView.Header>
+                <Label Text="Підключені датчики" FontSize="18" FontAttributes="Bold" Margin="0,0,0,5" />
+            </CollectionView.Header>
+
+            <CollectionView.EmptyView>
+                <Label Text="Немає підключених датчиків" Opacity="0.7" />
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="*,Auto" Padding="0,5">
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Label Text="{Binding Name}" FontAttributes="Bold" />
+                            <Label Text="{Binding Description}" FontSize="13" Opacity="0.7" />
+                        </VerticalStackLayout>
+
+                        <Button Grid.Column="1" Text="Видалити"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AdminViewModel}}, Path=RemoveCommand}"
+                                CommandParameter="{Binding .}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+    </Grid>
+</ContentPage>

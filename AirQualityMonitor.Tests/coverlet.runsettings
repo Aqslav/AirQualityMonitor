@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat code coverage">
+        <Configuration>
+          <!-- Код застосунку підключено до тестового проєкту файлами, тому він живе в тестовій збірці -->
+          <IncludeTestAssembly>true</IncludeTestAssembly>
+          <!-- Самі тести та згенерований код у покриття не рахуємо -->
+          <ExcludeByFile>**/AirQualityMonitor.Tests/*.cs</ExcludeByFile>
+          <ExcludeByAttribute>GeneratedCodeAttribute</ExcludeByAttribute>
+          <Format>cobertura</Format>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>

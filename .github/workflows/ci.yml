@@ -15,7 +15,7 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Автотести з покриттям
-        run: dotnet test AirQualityMonitor.Tests --collect:"XPlat Code Coverage" --results-directory ./coverage
+        run: dotnet test AirQualityMonitor.Tests --collect:"XPlat Code Coverage" --settings AirQualityMonitor.Tests/coverlet.runsettings --results-directory ./coverage
 
       - name: Звіт про покриття
         run: |

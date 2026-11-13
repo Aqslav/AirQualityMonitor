@@ -53,7 +53,7 @@ AdminPage --> AdminViewModel --> SensorHub.AddAsync / RemoveAsync --> Database (
 `SensorHub` тестується з підміною сховища (`FakeStorage`), тому реальна БД не потрібна.
 
 ```bash
-dotnet test AirQualityMonitor.Tests --collect:"XPlat Code Coverage"
+dotnet test AirQualityMonitor.Tests --collect:"XPlat Code Coverage" --settings AirQualityMonitor.Tests/coverlet.runsettings
 ```
 
 GitHub Actions (`.github/workflows/ci.yml`) запускає тести та будує звіт про покриття на кожен push/PR.
